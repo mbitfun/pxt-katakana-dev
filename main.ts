@@ -1,11 +1,10 @@
 //% weight=70 icon="\u30A2" color=#EC7505 block="カタカナ"
 namespace katakana {
-    const hs1 = " !" + '"' + "#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz"
-    const em1 = "　！”＃＄％＆’（）＊＋，－．／０１２３４５６７８９：；＜＝＞？＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ"
-    const hs2 = "{|}~¥｡｢｣､･ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ"
-    const em2 = "｛｜｝〜￥。「」、・ヲァィゥェォャュョッーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン゛°"
+    const hs1 = "!" + '"' + "#$%&'()*+,-./:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~¥"
+    const em1 = "！”＃＄％＆’（）＊＋，－．／：；＜＝＞？＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝〜￥"
+    const hs2 = " 0123456789｡｢｣､･ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ"
+    const em2 = "　０１２３４５６７８９。「」、・ヲァィゥェォャュョッーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン゛°"
     const arr = [
-        "0000000000",
         "0000230000",   //！
         "0007000700",
         "1031103110",
@@ -21,16 +20,6 @@ namespace katakana {
         "0004040400",
         "0000160000",
         "1608040201",
-        "1417171400",   //0
-        "0018311600",
-        "2521211800",
-        "0917211100",
-        "1210093108",
-        "2321212109",
-        "0820222108",
-        "1709050301",
-        "1021212110",
-        "0221130502",
         "0000100000",
         "0016100000",
         "0004101700",
@@ -95,14 +84,25 @@ namespace katakana {
         "3016081630",
         "1812121800",
         "1820080402",
-        "1826221800"   //z
-    ]
-    const arr2 = [
+        "1826221800",   //z
         "0000043117",
         "0000310000",
         "1731040000",
         "0402040804",
         "0013301300",   //¥
+    ]
+    const arr2 = [
+        "0000000000",
+        "1417171400",   //0
+        "0018311600",
+        "2521211800",
+        "0917211100",
+        "1210093108",
+        "2321212109",
+        "0820222108",
+        "1709050301",
+        "1021212110",
+        "0221130502",
         "0820080000",
         "0000150101",
         "1616300000",
@@ -178,7 +178,7 @@ namespace katakana {
 
     //% blockId=show_strings block="文字列を表示 %v"
     export function showString(text: string, time: number = 500): void {
-        let strings: number[] = [0,0,0,0]
+        let strings: number[] = [0, 0, 0, 0]
         for (let c = 0; c < text.length; c++) {
             if (text.substr(c, 1) == "　") text = text.substr(0, c) + " " + text.substr(c + 1, text.length - c - 1)
             for (let m = 0; m < marks.length; m++)
@@ -190,13 +190,12 @@ namespace katakana {
                 if (hs1.substr(x, 1) == text.substr(d, 1) || em1.substr(x, 1) == text.substr(d, 1)) {
                     for (let z = 0; z < 5; z++) strings.push(parseInt(arr[x].substr(z * 2, 2)))
                     strings.push(0)
-                    break
                 }
                 if (hs2.substr(x, 1) == text.substr(d, 1) || em2.substr(x, 1) == text.substr(d, 1)) {
                     for (let z = 0; z < 5; z++) strings.push(parseInt(arr2[x].substr(z * 2, 2)))
                     if ((x == arr2.length - 2) || (x == arr2.length - 1)) {
                         strings.splice(strings.length - 6, 1)
-                        strings.splice(strings.length - (3 - (x % 2)), (3 - (x % 2)))
+                        strings.splice(strings.length - (3 - ((x + 1) % 2)), (3 - ((x + 1) % 2)))
                     }
                     strings.push(0)
                     break
@@ -204,9 +203,9 @@ namespace katakana {
             }
         }
 
-        if (strings.length == 6) {
+        if (strings.length == 10) {
             for (let y = 0; y < 5; y++)
-                for (let b = 0, tmp = strings[y]; b < 5; b++) {
+                for (let b = 0, tmp = strings[y + 4]; b < 5; b++) {
                     tmp % 2 == 1 && led.plot(y, b)
                     tmp = (tmp - (tmp % 2)) / 2
                 }
