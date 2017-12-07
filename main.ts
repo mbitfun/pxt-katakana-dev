@@ -1,9 +1,7 @@
 //% weight=70 icon="\u30A2" color=#EC7505 block="カタカナ"
 namespace katakana {
     const hs1 = "!" + '"' + "#$%&'()*+,-./:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~¥"
-    const em1 = "！”＃＄％＆’（）＊＋，－．／：；＜＝＞？＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝〜￥"
     const hs2 = " 0123456789｡｢｣､･ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ"
-    const em2 = "　０１２３４５６７８９。「」、・ヲァィゥェォャュョッーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン゛°"
     const arr = [
         "0000230000",   //！
         "0007000700",
@@ -167,31 +165,16 @@ namespace katakana {
         "0303000000",
         "0205020000"
     ]
-    const marks = [
-        "ガカﾞ", "ギキﾞ", "グクﾞ", "ゲケﾞ", "ゴコﾞ",
-        "ザサﾞ", "ジシﾞ", "ズスﾞ", "ゼセﾞ", "ゾソﾞ",
-        "ダタﾞ", "ヂチﾞ", "ヅツﾞ", "デテﾞ", "ドトﾞ",
-        "バハﾞ", "ビヒﾞ", "ブフﾞ", "ベヘﾞ", "ボホﾞ",
-        "ヴウﾞ",
-        "パハﾟ", "ピヒﾟ", "プフﾟ", "ペヘﾟ", "ポホﾟ"
-    ]
-
     //% blockId=show_strings block="文字列を表示 %v"
     export function showString(text: string, time: number = 500): void {
         let strings: number[] = [0, 0, 0, 0]
-        for (let c = 0; c < text.length; c++) {
-            if (text.substr(c, 1) == "　") text = text.substr(0, c) + " " + text.substr(c + 1, text.length - c - 1)
-            for (let m = 0; m < marks.length; m++)
-                if (text.substr(c, 1) == marks[m].substr(0, 1))
-                    text = text.substr(0, c) + marks[m].substr(1, 2) + text.substr(c + 1, text.length - c - 1)
-        }
         for (let d = 0; d < text.length; d++) {
             for (let x = 0; x < arr.length; x++) {
-                if (hs1.substr(x, 1) == text.substr(d, 1) || em1.substr(x, 1) == text.substr(d, 1)) {
+                if (hs1.substr(x, 1) == text.substr(d, 1)) {
                     for (let z = 0; z < 5; z++) strings.push(parseInt(arr[x].substr(z * 2, 2)))
                     strings.push(0)
                 }
-                if (hs2.substr(x, 1) == text.substr(d, 1) || em2.substr(x, 1) == text.substr(d, 1)) {
+                if (hs2.substr(x, 1) == text.substr(d, 1)) {
                     for (let z = 0; z < 5; z++) strings.push(parseInt(arr2[x].substr(z * 2, 2)))
                     if ((x == arr2.length - 2) || (x == arr2.length - 1)) {
                         strings.splice(strings.length - 6, 1)
