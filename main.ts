@@ -172,8 +172,5 @@ namespace katakana {
         str.push(strings)
     }
     //% blockId=set_strings block="文字列"
-    export function setStrings(): void {
-        return ()=>{}
-
-    }
+    export function setStrings(handler: () => void): void;
 }
