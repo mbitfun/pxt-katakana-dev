@@ -171,7 +171,7 @@ namespace katakana {
         let strings: number[] = [0,0,0,0,0]
         str.push(strings)
     }
-    //% blockId=show_strings block="文字列"
+    //% blockId=set_strings block="文字列"
     export function setStrings(): void {
         showString("a")
 
