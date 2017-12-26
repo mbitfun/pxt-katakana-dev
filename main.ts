@@ -1,4 +1,3 @@
-//% weight=70 icon="\u30A2" color=#EC7505 block="カタカナ"
 namespace katakana {
     const hs1 = "!" + '"' + "#$%&'()*+,-./:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`"
     const hs2 = " 0123456789｡｢｣､･ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ"
@@ -165,46 +164,16 @@ namespace katakana {
         "0303000000",
         "0205020000"
     ]
+    let str = [[0,0,0,0,0]]
+
     //% blockId=show_strings block="文字列を表示 %v"
     export function showString(text: string, time: number = 500): void {
-        let strings: number[] = [0, 0, 0, 0]
-        for (let d = 0; d < text.length; d++) {
-            for (let x = 0; x < arr.length; x++) {
-                if (hs1.substr(x, 1) == text.substr(d, 1)) {
-                    for (let z = 0; z < 5; z++) strings.push(parseInt(arr[x].substr(z * 2, 2)))
-                    strings.push(0)
-                }
-                if (hs2.substr(x, 1) == text.substr(d, 1)) {
-                    for (let z = 0; z < 5; z++) strings.push(parseInt(arr2[x].substr(z * 2, 2)))
-                    if ((x == arr2.length - 2) || (x == arr2.length - 1)) {
-                        strings.splice(strings.length - 6, 1)
-                        strings.splice(strings.length - (3 - ((x + 1) % 2)), (3 - ((x + 1) % 2)))
-                    }
-                    strings.push(0)
-                    break
-                }
-            }
-        }
-
-        if (strings.length == 10) {
-            for (let y = 0; y < 5; y++)
-                for (let b = 0, tmp = strings[y + 4]; b < 5; b++) {
-                    tmp % 2 == 1 && led.plot(y, b)
-                    tmp = (tmp - (tmp % 2)) / 2
-                }
-        } else {
-            for (let a = 0; a < strings.length; a++) {
-                for (let y = a; y < a + 5; y++)
-                    for (let b = 0, tmp = strings[y]; b < 5; b++) {
-                        tmp % 2 == 1 && led.plot(y - a, b)
-                        tmp = (tmp - (tmp % 2)) / 2
-                    }
-                basic.pause(time)
-                for (let e = 0; e < 5; e++)
-                    for (let f = 0; f < 5; f++)
-                        led.unplot(e, f)
-            }
-        }
+        let strings: number[] = [0,0,0,0,0]
+        str.push(strings)
+    }
+    //% blockId=show_strings block="文字列"
+    export function setStrings(): void {
+        showString("a")
 
     }
 }
