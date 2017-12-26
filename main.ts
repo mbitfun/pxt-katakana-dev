@@ -173,7 +173,7 @@ namespace katakana {
     }
     //% blockId=set_strings block="文字列"
     export function setStrings(): void {
-        showString("a")
+        return ()=>{}
 
     }
 }
